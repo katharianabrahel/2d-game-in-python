@@ -3,7 +3,7 @@ from pygame.locals import *
 from sys import exit
 
 pygame.init()
- 
+
 largura = 1280
 altura = 720
 
@@ -14,4 +14,4 @@ while True:
         if event.type == QUIT:
             pygame.quit()
             exit()
-    pygame.display.updade()
+    pygame.display.update()
