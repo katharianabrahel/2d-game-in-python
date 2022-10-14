@@ -1,6 +1,10 @@
 import pygame
 from sys import exit
 
+def colisao_coletavel(player, coletavel):
+    if player.colliderect(coletavel):
+        coletavel.x = -300        
+
 pygame.init()
 tela = pygame.display.set_mode((1280, 720))
 pygame.display.set_caption('NOME DO JOGO')
@@ -22,6 +26,19 @@ player_teste.fill('red')
 player_rect = player_teste.get_rect(midbottom = (100, 600))
 player_gravity = 0
 
+coletavel1 = pygame.Surface ((10, 10))
+coletavel1.fill('blue')
+coletavel1_rect = coletavel1.get_rect(topleft = (300, 400))
+
+coletavel2 = pygame.Surface ((10, 10))
+coletavel2.fill('blue')
+coletavel2_rect = coletavel1.get_rect(topleft = (600, 400))
+
+coletavel3 = pygame.Surface ((10, 10))
+coletavel3.fill('blue')
+coletavel3_rect = coletavel1.get_rect(topleft = (900, 400))
+
+
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -31,6 +48,7 @@ while True:
     tela.blit(background_teste, (0, 0))
     tela.blit(piso_teste, (0, 600))
     
+    tela.blit(inimigo_teste, inimigo_rect)
     if inimigo_rect.x <= 1230 and inimigo_rect.x > 2 and movimento == 'esquerda':
         inimigo_rect.x -= 2
     elif inimigo_rect.x == 2 and movimento == 'esquerda':
@@ -41,9 +59,8 @@ while True:
     elif inimigo_rect.x == 1230 and movimento == 'direita':
         movimento = 'esquerda'
         inimigo_rect.x -= 2
-    tela.blit(inimigo_teste, inimigo_rect)
+    
     tela.blit(player_teste, player_rect)
-
     if event.type == pygame.KEYDOWN:
         keys = pygame.key.get_pressed()
         if keys[pygame.K_RIGHT]:
@@ -52,6 +69,13 @@ while True:
             player_rect.x -= 4
         if event.key == pygame.K_UP and player_rect.bottom >= 600:
             player_gravity = -20
+
+    tela.blit(coletavel1, coletavel1_rect)
+    colisao_coletavel(player_rect, coletavel1_rect)
+    tela.blit(coletavel2, coletavel2_rect)
+    colisao_coletavel(player_rect, coletavel2_rect)
+    tela.blit(coletavel3, coletavel3_rect)
+    colisao_coletavel(player_rect, coletavel3_rect)
     
     player_gravity += 1
     player_rect.y += player_gravity
