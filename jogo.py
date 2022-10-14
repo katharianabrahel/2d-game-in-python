@@ -8,6 +8,7 @@ def colisao_coletavel(player, coletavel):
 pygame.init()
 tela = pygame.display.set_mode((1280, 720))
 pygame.display.set_caption('NOME DO JOGO')
+fonte = pygame.font.Font(None, 50)
 clock = pygame.time.Clock()
 
 background_teste = pygame.Surface((1280, 720))
@@ -38,12 +39,15 @@ coletavel3 = pygame.Surface ((10, 10))
 coletavel3.fill('blue')
 coletavel3_rect = coletavel1.get_rect(topleft = (900, 400))
 
+n_coletaveis = 0
 
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
+    score = fonte.render(f'Score: {n_coletaveis}', True, (255,255,255))
+    score_rect = score.get_rect(topleft = (50, 50))
 
     tela.blit(background_teste, (0, 0))
     tela.blit(piso_teste, (0, 600))
@@ -73,6 +77,9 @@ while True:
     tela.blit(coletavel1, coletavel1_rect)
     tela.blit(coletavel2, coletavel2_rect)
     tela.blit(coletavel3, coletavel3_rect)
+    tela.blit(score, score_rect)
+    if player_rect.colliderect(coletavel1_rect) or player_rect.colliderect(coletavel2_rect) or player_rect.colliderect(coletavel3_rect):
+        n_coletaveis += 1
     colisao_coletavel(player_rect, coletavel1_rect)
     colisao_coletavel(player_rect, coletavel2_rect)
     colisao_coletavel(player_rect, coletavel3_rect)
