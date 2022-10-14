@@ -3,7 +3,7 @@ from sys import exit
 
 def colisao_coletavel(player, coletavel):
     if player.colliderect(coletavel):
-        coletavel.x = -300        
+        coletavel.x = -300
 
 pygame.init()
 tela = pygame.display.set_mode((1280, 720))
@@ -24,7 +24,7 @@ movimento = 'esquerda'
 player_teste = pygame.Surface((50, 50))
 player_teste.fill('red')
 player_rect = player_teste.get_rect(midbottom = (100, 600))
-player_gravity = 0
+player_gravity = 20
 
 coletavel1 = pygame.Surface ((10, 10))
 coletavel1.fill('blue')
@@ -71,14 +71,21 @@ while True:
             player_gravity = -20
 
     tela.blit(coletavel1, coletavel1_rect)
-    colisao_coletavel(player_rect, coletavel1_rect)
     tela.blit(coletavel2, coletavel2_rect)
-    colisao_coletavel(player_rect, coletavel2_rect)
     tela.blit(coletavel3, coletavel3_rect)
+    colisao_coletavel(player_rect, coletavel1_rect)
+    colisao_coletavel(player_rect, coletavel2_rect)
     colisao_coletavel(player_rect, coletavel3_rect)
     
     player_gravity += 1
     player_rect.y += player_gravity
+    if player_rect.colliderect(inimigo_rect):
+        if 0 <= player_gravity <= 20:
+            inimigo_rect.x = -500
+            player_gravity = -10
+        else:
+            pygame.quit()
+            exit()
     if player_rect.bottom >= 600:
         player_rect.bottom = 600
 
