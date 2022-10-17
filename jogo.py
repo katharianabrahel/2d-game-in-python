@@ -5,6 +5,17 @@ def colisao_coletavel(player, coletavel):
     if player.colliderect(coletavel):
         coletavel.x = -300
 
+def contador_vidas():
+    if vidas == 3:
+        tela.blit(tres_vidas, (500, 50))
+    elif vidas == 2:
+        tela.blit(duas_vidas, (500,50))
+    elif vidas == 1:
+        tela.blit(uma_vida, (500,50))
+    else:
+        pygame.quit()
+        exit()
+
 pygame.init()
 tela = pygame.display.set_mode((1280, 720))
 pygame.display.set_caption('NOME DO JOGO')
@@ -40,9 +51,23 @@ coletavel3.fill('blue')
 coletavel3_rect = coletavel1.get_rect(topleft = (900, 400))
 
 n_coletaveis = 0
+vidas = 3
+counter, timer = 100, '100'.rjust(3)
+pygame.time.set_timer(pygame.USEREVENT, 1000)
+
+tres_vidas = pygame.image.load('images/tres_vidas.png')
+duas_vidas = pygame.image.load('images/duas_vidas.png')
+uma_vida = pygame.image.load('images/uma_vida.png')
 
 while True:
     for event in pygame.event.get():
+        if event.type == pygame.USEREVENT: 
+            counter -= 1
+            if counter > 0:
+                timer = str(counter).rjust(3)
+            else:
+                pygame.quit()
+                exit()
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
@@ -51,6 +76,7 @@ while True:
 
     tela.blit(background_teste, (0, 0))
     tela.blit(piso_teste, (0, 600))
+    tela.blit(fonte.render("Time: " + timer, True, (255, 255, 255)), (1070, 50))
     
     tela.blit(inimigo_teste, inimigo_rect)
     if inimigo_rect.x <= 1230 and inimigo_rect.x > 2 and movimento == 'esquerda':
@@ -93,10 +119,10 @@ while True:
             inimigo_rect.x = -500
             player_gravity = -10
         else:
-            pygame.quit()
-            exit()    
+            vidas -= 1
     if player_rect.bottom >= 600:
         player_rect.bottom = 600
 
+    contador_vidas()
     pygame.display.update()
     clock.tick(60)
