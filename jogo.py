@@ -120,6 +120,8 @@ while True:
             player_gravity = -10
         else:
             vidas -= 1
+            player_rect = player_teste.get_rect(midbottom = (100, 600))
+            inimigo_rect = inimigo_teste.get_rect(bottomleft = (1230, 600))
     if player_rect.bottom >= 600:
         player_rect.bottom = 600
 
