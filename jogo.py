@@ -4,12 +4,23 @@ from sys import exit
 def colisao_coletavel(player, coletavel):
     if player.colliderect(coletavel):
         coletavel.x = -300
+        
+def contador_vidas():
+    if vidas == 3:
+        tela.blit(tres_vidas, (500, 50))
+    elif vidas == 2:
+        tela.blit(duas_vidas, (500,50))
+    elif vidas == 1:
+        tela.blit(uma_vida, (500,50))
 
 pygame.init()
 tela = pygame.display.set_mode((1280, 720))
 pygame.display.set_caption('NOME DO JOGO')
 fonte = pygame.font.Font(None, 50)
 clock = pygame.time.Clock()
+tres_vidas = pygame.image.load(r'imagens\tres_vidas.png')
+duas_vidas = pygame.image.load(r'imagens\duas_vidas.png')
+uma_vida = pygame.image.load(r'imagens\uma_vida.png')
 
 background_teste = pygame.Surface((1280, 720))
 background_teste.fill('black')
@@ -40,6 +51,7 @@ coletavel3.fill('blue')
 coletavel3_rect = coletavel1.get_rect(topleft = (900, 400))
 
 n_coletaveis = 0
+vidas = 3
 counter, timer = 100, '100'.rjust(3)
 pygame.time.set_timer(pygame.USEREVENT, 1000)
 
@@ -105,6 +117,7 @@ while True:
             exit()
     if player_rect.bottom >= 600:
         player_rect.bottom = 600
-
+        
+    contador_vidas()
     pygame.display.update()
     clock.tick(60)
