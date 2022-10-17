@@ -15,6 +15,15 @@ def contador_vidas():
     else:
         pygame.quit()
         exit()
+        
+def cronometro(tempo):
+    tempo_atual = int(pygame.time.get_ticks() / 1000)
+    tempo_restante = tempo - tempo_atual
+    if tempo_restante == 0:
+        pygame.quit()
+        exit()
+    return tempo_restante
+
 
 pygame.init()
 tela = pygame.display.set_mode((1280, 720))
@@ -52,8 +61,6 @@ coletavel3_rect = coletavel1.get_rect(topleft = (900, 400))
 
 n_coletaveis = 0
 vidas = 3
-counter, timer = 100, '100'.rjust(3)
-pygame.time.set_timer(pygame.USEREVENT, 1000)
 
 tres_vidas = pygame.image.load('images/tres_vidas.png')
 duas_vidas = pygame.image.load('images/duas_vidas.png')
@@ -61,13 +68,6 @@ uma_vida = pygame.image.load('images/uma_vida.png')
 
 while True:
     for event in pygame.event.get():
-        if event.type == pygame.USEREVENT: 
-            counter -= 1
-            if counter > 0:
-                timer = str(counter).rjust(3)
-            else:
-                pygame.quit()
-                exit()
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
@@ -76,7 +76,7 @@ while True:
 
     tela.blit(background_teste, (0, 0))
     tela.blit(piso_teste, (0, 600))
-    tela.blit(fonte.render("Time: " + timer, True, (255, 255, 255)), (1070, 50))
+    tela.blit(fonte.render("Time: " + str(cronometro(100)), True, (255, 255, 255)), (1070, 50))
     
     tela.blit(inimigo_teste, inimigo_rect)
     if inimigo_rect.x <= 1230 and inimigo_rect.x > 2 and movimento == 'esquerda':
@@ -99,6 +99,10 @@ while True:
             player_rect.x -= 4
         if event.key == pygame.K_UP and player_rect.bottom >= 600:
             player_gravity = -20
+    if player_rect.x < 0:
+        player_rect.x = 0
+    elif player_rect.x > 1230:
+        player_rect.x = 1230
 
     tela.blit(coletavel1, coletavel1_rect)
     tela.blit(coletavel2, coletavel2_rect)
