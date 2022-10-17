@@ -86,13 +86,15 @@ while True:
     
     player_gravity += 1
     player_rect.y += player_gravity
+    if player_gravity > 20:
+        player_gravity = 21
     if player_rect.colliderect(inimigo_rect):
         if 0 <= player_gravity <= 20:
             inimigo_rect.x = -500
             player_gravity = -10
         else:
             pygame.quit()
-            exit()
+            exit()    
     if player_rect.bottom >= 600:
         player_rect.bottom = 600
 
