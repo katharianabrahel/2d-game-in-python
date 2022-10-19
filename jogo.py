@@ -115,6 +115,7 @@ while True:
     tela.blit(player_teste, player_rect) 
     if player_rect.colliderect(energia_coletavel_rect):
         velocidade = True
+        energia_coletavel_rect.x = -300
     if event.type == pygame.KEYDOWN:
         andar(velocidade)
         if event.key == pygame.K_UP and player_rect.bottom >= 600:
@@ -136,7 +137,6 @@ while True:
     colisao_coletavel(player_rect, coletavel1_rect)
     colisao_coletavel(player_rect, coletavel2_rect)
     colisao_coletavel(player_rect, coletavel3_rect)
-    colisao_coletavel(player_rect, energia_coletavel_rect)
 
     player_gravity += 1
     player_rect.y += player_gravity
@@ -157,6 +157,7 @@ while True:
     if player_rect.bottom >= 600:
         player_rect.bottom = 600
 
+    print(velocidade)
     contador_vidas()
     pygame.display.update()
     clock.tick(60)
