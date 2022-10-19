@@ -157,7 +157,6 @@ while True:
     if player_rect.bottom >= 600:
         player_rect.bottom = 600
 
-    print(velocidade)
     contador_vidas()
     pygame.display.update()
     clock.tick(60)
