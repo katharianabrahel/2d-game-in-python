@@ -58,7 +58,7 @@ def animacao_coletavel():
 def animacao_player():
     global player_index, player_direita, player_status, player_animacao, player
     player_index += 0.3
-    if player_index >= 10:
+    if player_index > 10:
         player_index = 0
     if player_status == 'Idle':
         if player_direita:
@@ -81,7 +81,15 @@ def animacao_player():
         else:
             player = pygame.transform.flip(player_animacao_jump[int(player_index)], True, False)
 
-
+def animacao_inimigo():
+    global inimigo_index, movimento, inimigo
+    inimigo_index += 0.2
+    if inimigo_index >= 10:
+        inimigo_index = 0
+    if movimento == 'direita':
+        inimigo = pygame.transform.flip(inimigo_walk[int(inimigo_index)], True, False)
+    else:
+        inimigo = inimigo_walk[int(inimigo_index)]
 
 pygame.init()
 tela = pygame.display.set_mode((1280, 720))
@@ -95,9 +103,22 @@ background_teste.fill('black')
 piso_teste = pygame.Surface((1280, 300))
 piso_teste.fill('gray')
 
-inimigo_teste = pygame.Surface((50, 50))
-inimigo_teste.fill('yellow')
-inimigo_rect = inimigo_teste.get_rect(bottomleft = (1230, 600))
+inimigo_index = 0
+inimigo_walk_1 = pygame.image.load('images/enemy/walk/walk1.png')
+inimigo_walk_2 = pygame.image.load('images/enemy/walk/walk2.png')
+inimigo_walk_3 = pygame.image.load('images/enemy/walk/walk3.png')
+inimigo_walk_4 = pygame.image.load('images/enemy/walk/walk4.png')
+inimigo_walk_5 = pygame.image.load('images/enemy/walk/walk5.png')
+inimigo_walk_6 = pygame.image.load('images/enemy/walk/walk6.png')
+inimigo_walk_7 = pygame.image.load('images/enemy/walk/walk7.png')
+inimigo_walk_8 = pygame.image.load('images/enemy/walk/walk8.png')
+inimigo_walk_9 = pygame.image.load('images/enemy/walk/walk9.png')
+inimigo_walk_10 = pygame.image.load('images/enemy/walk/walk10.png')
+
+inimigo_walk = [inimigo_walk_1, inimigo_walk_2, inimigo_walk_3, inimigo_walk_4, inimigo_walk_5, inimigo_walk_6, inimigo_walk_7, inimigo_walk_8, inimigo_walk_9, inimigo_walk_10]
+
+inimigo = inimigo_walk[int(inimigo_index)]
+inimigo_rect = inimigo.get_rect(bottomleft = (1230, 607))
 movimento = 'esquerda'
 
 player_status = 'Idle'
@@ -175,8 +196,7 @@ coletavel2_rect = coletavel1.get_rect(topleft = (600, 400))
 coletavel3 = coin[coin_index]
 coletavel3_rect = coletavel1.get_rect(topleft = (900, 400))
 
-energia_coletavel = pygame.Surface((10, 10))
-energia_coletavel.fill('yellow')
+energia_coletavel = pygame.image.load('images/energy.png')
 energia_coletavel_rect = coletavel1.get_rect(topleft = (800, 400))
 
 vida_coletavel = pygame.image.load('images/vida_coletavel.png')
@@ -204,7 +224,8 @@ while True:
     tela.blit(piso_teste, (0, 600))
     tela.blit(fonte.render("Time: " + str(cronometro(100)), True, (255, 255, 255)), (1070, 50))
 
-    tela.blit(inimigo_teste, inimigo_rect)
+    animacao_inimigo()
+    tela.blit(inimigo, inimigo_rect)
     if inimigo_rect.x <= 1230 and inimigo_rect.x > 2 and movimento == 'esquerda':
         inimigo_rect.x -= 2
     elif inimigo_rect.x == 2 and movimento == 'esquerda':
@@ -257,7 +278,7 @@ while True:
         else:
             vidas -= 1
             player_rect = player.get_rect(midbottom = (100, 600))
-            inimigo_rect = inimigo_teste.get_rect(bottomleft = (1230, 600))
+            inimigo_rect = inimigo.get_rect(bottomleft = (1230, 600))
     if player_rect.colliderect(vida_coletavel_rect):
         if vidas < 3:
             vidas += 1
