@@ -61,22 +61,22 @@ def animacao_player():
     if player_index > 10:
         player_index = 0
     if player_status == 'Idle':
-        if player_direita:
+        if not player_direita:
             player = player_animacao_idle[int(player_index)]
         else:
             player = pygame.transform.flip(player_animacao_idle[int(player_index)], True, False)
     elif player_status == 'Walk':
-        if player_direita:
+        if not player_direita:
             player = player_animacao_walk[int(player_index)]
         else:
             player = pygame.transform.flip(player_animacao_walk[int(player_index)], True, False)
     elif player_status == 'Run':
-        if player_direita:
+        if not player_direita:
             player = player_animacao_run[int(player_index)]
         else:
             player = pygame.transform.flip(player_animacao_run[int(player_index)], True, False)
     elif player_status == 'Jump':
-        if player_direita:
+        if not player_direita:
             player = player_animacao_jump[int(player_index)]
         else:
             player = pygame.transform.flip(player_animacao_jump[int(player_index)], True, False)
@@ -173,7 +173,7 @@ player_animacao_jump_10 = pygame.image.load('images/player/jump/Jump(10).png')
 player_animacao_jump = [player_animacao_jump_1, player_animacao_jump_2, player_animacao_jump_3, player_animacao_jump_4, player_animacao_jump_5, player_animacao_jump_6, player_animacao_jump_7, player_animacao_jump_8,player_animacao_jump_9, player_animacao_jump_10 ]
 
 player = player_animacao_idle[player_index]
-player_rect = player.get_rect(midbottom = (100, 607))
+player_rect = player.get_rect(midbottom = (100, 600))
 player_gravity = 20
 
 coin1 = pygame.image.load('images/coin/coin_1.png')
@@ -283,9 +283,9 @@ while True:
         if vidas < 3:
             vidas += 1
         vida_coletavel_rect.x = -500
-    if player_rect.bottom >= 607:
-        player_rect.bottom = 607
-    elif player_rect.bottom < 607:
+    if player_rect.bottom >= 600:
+        player_rect.bottom = 600
+    elif player_rect.bottom < 600:
         player_status = 'Jump'
 
     contador_vidas()
