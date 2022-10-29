@@ -212,84 +212,125 @@ uma_vida = pygame.image.load('images/uma_vida.png')
 velocidade = False
 
 
-while True:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            exit()
-    score = fonte.render(f'Score: {n_coletaveis}', True, (255, 255, 255))
-    score_rect = score.get_rect(topleft = (50, 50))
+pygame.init()  
+res = (1280,720)  
+screen = pygame.display.set_mode(res)  
+color = (255,255,255)  
+color_light = (170,170,170)  
+color_dark = (100,100,100)  
+width = screen.get_width()  
+height = screen.get_height()  
+smallfont = pygame.font.SysFont('Corbel',35)  
+text = smallfont.render('Iniciar' , True , color)  
+iniciar = False
+while True:  
+    
+    for event in pygame.event.get():  
+        if event.type == pygame.QUIT:  
+            pygame.quit()  
+            
+        if event.type == pygame.MOUSEBUTTONDOWN:  
+                    if width/2 <= mouse[0] <= width/2+140 and height/2 <= mouse[1] <= height/2+40:  
+                       iniciar = True
+                
+    
+    screen.fill((0,0,0))  
+    
+    
+    
+    mouse = pygame.mouse.get_pos()  
 
-    tela.blit(background_teste, (0, 0))
-    tela.blit(piso_teste, (0, 600))
-    tela.blit(fonte.render("Time: " + str(cronometro(100)), True, (255, 255, 255)), (1070, 50))
+    if iniciar == True: 
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    exit()
+            score = fonte.render(f'Score: {n_coletaveis}', True, (255, 255, 255))
+            score_rect = score.get_rect(topleft = (50, 50))
 
-    animacao_inimigo()
-    tela.blit(inimigo, inimigo_rect)
-    if inimigo_rect.x <= 1230 and inimigo_rect.x > 2 and movimento == 'esquerda':
-        inimigo_rect.x -= 2
-    elif inimigo_rect.x == 2 and movimento == 'esquerda':
-        movimento = 'direita'
-        inimigo_rect.x += 2
-    elif inimigo_rect.x >= 2 and inimigo_rect.x < 1230 and movimento == 'direita':
-        inimigo_rect.x += 2
-    elif inimigo_rect.x == 1230 and movimento == 'direita':
-        movimento = 'esquerda'
-        inimigo_rect.x -= 2
+            tela.blit(background_teste, (0, 0))
+            tela.blit(piso_teste, (0, 600))
+            tela.blit(fonte.render("Time: " + str(cronometro(100)), True, (255, 255, 255)), (1070, 50))
 
-    animacao_player()
-    tela.blit(player, player_rect) 
-    if player_rect.colliderect(energia_coletavel_rect):
-        velocidade = True
-        energia_coletavel_rect.x = -300
-    if event.type == pygame.KEYDOWN:
-        andar(velocidade)
-        if event.key == pygame.K_UP and player_rect.bottom >= 600:
-            player_gravity = -20
-    else:
-        player_status = 'Idle'
+            animacao_inimigo()
+            tela.blit(inimigo, inimigo_rect)
+            if inimigo_rect.x <= 1230 and inimigo_rect.x > 2 and movimento == 'esquerda':
+                inimigo_rect.x -= 2
+            elif inimigo_rect.x == 2 and movimento == 'esquerda':
+                movimento = 'direita'
+                inimigo_rect.x += 2
+            elif inimigo_rect.x >= 2 and inimigo_rect.x < 1230 and movimento == 'direita':
+                inimigo_rect.x += 2
+            elif inimigo_rect.x == 1230 and movimento == 'direita':
+                movimento = 'esquerda'
+                inimigo_rect.x -= 2
 
-    if player_rect.x < -20:
-        player_rect.x = -20
-    elif player_rect.x > 1200:
-        player_rect.x = 1200
+            animacao_player()
+            tela.blit(player, player_rect) 
+            if player_rect.colliderect(energia_coletavel_rect):
+                velocidade = True
+                energia_coletavel_rect.x = -300
+            if event.type == pygame.KEYDOWN:
+                andar(velocidade)
+                if event.key == pygame.K_UP and player_rect.bottom >= 600:
+                    player_gravity = -20
+            else:
+                player_status = 'Idle'
 
-    animacao_coletavel()
-    tela.blit(coletavel1, coletavel1_rect)
-    tela.blit(coletavel2, coletavel2_rect)
-    tela.blit(coletavel3, coletavel3_rect)
-    tela.blit(energia_coletavel, energia_coletavel_rect)
-    tela.blit(vida_coletavel, vida_coletavel_rect)
-    tela.blit(score, score_rect)
-    if player_rect.colliderect(coletavel1_rect) or player_rect.colliderect(coletavel2_rect) or player_rect.colliderect(coletavel3_rect):
-        n_coletaveis += 1
-        pygame.mixer.music.load('sounds/coin.wav')
-        pygame.mixer.music.play(0)
-    colisao_coletavel(player_rect, coletavel1_rect)
-    colisao_coletavel(player_rect, coletavel2_rect)
-    colisao_coletavel(player_rect, coletavel3_rect)
+            if player_rect.x < -20:
+                player_rect.x = -20
+            elif player_rect.x > 1200:
+                player_rect.x = 1200
 
-    player_gravity += 1
-    player_rect.y += player_gravity
-    if player_gravity > 20:
-        player_gravity = 21
-    if player_rect.colliderect(inimigo_rect):
-        if 0 <= player_gravity <= 20:
-            inimigo_rect.x = -500
-            player_gravity = -10
-        else:
-            vidas -= 1
-            player_rect = player.get_rect(midbottom = (100, 600))
-            inimigo_rect = inimigo.get_rect(bottomleft = (1230, 600))
-    if player_rect.colliderect(vida_coletavel_rect):
-        if vidas < 3:
-            vidas += 1
-        vida_coletavel_rect.x = -500
-    if player_rect.bottom >= 600:
-        player_rect.bottom = 600
-    elif player_rect.bottom < 600:
-        player_status = 'Jump'
+            animacao_coletavel()
+            tela.blit(coletavel1, coletavel1_rect)
+            tela.blit(coletavel2, coletavel2_rect)
+            tela.blit(coletavel3, coletavel3_rect)
+            tela.blit(energia_coletavel, energia_coletavel_rect)
+            tela.blit(vida_coletavel, vida_coletavel_rect)
+            tela.blit(score, score_rect)
+            if player_rect.colliderect(coletavel1_rect) or player_rect.colliderect(coletavel2_rect) or player_rect.colliderect(coletavel3_rect):
+                n_coletaveis += 1
+                pygame.mixer.music.load('sounds/coin.wav')
+                pygame.mixer.music.play(0)
+            colisao_coletavel(player_rect, coletavel1_rect)
+            colisao_coletavel(player_rect, coletavel2_rect)
+            colisao_coletavel(player_rect, coletavel3_rect)
 
-    contador_vidas()
+            player_gravity += 1
+            player_rect.y += player_gravity
+            if player_gravity > 20:
+                player_gravity = 21
+            if player_rect.colliderect(inimigo_rect):
+                if 0 <= player_gravity <= 20:
+                    inimigo_rect.x = -500
+                    player_gravity = -10
+                else:
+                    vidas -= 1
+                    player_rect = player.get_rect(midbottom = (100, 600))
+                    inimigo_rect = inimigo.get_rect(bottomleft = (1230, 600))
+            if player_rect.colliderect(vida_coletavel_rect):
+                if vidas < 3:
+                    vidas += 1
+                vida_coletavel_rect.x = -500
+            if player_rect.bottom >= 600:
+                player_rect.bottom = 600
+            elif player_rect.bottom < 600:
+                player_status = 'Jump'
+
+            contador_vidas()
+            pygame.display.update()
+            clock.tick(60)
+    
+    
+    
+    if width/2 <= mouse[0] <= width/2+140 and height/2 <= mouse[1] <= height/2+40:  
+        pygame.draw.rect(screen,color_light,[width/2,height/2,140,40])  
+        
+    else:  
+        pygame.draw.rect(screen,color_dark,[width/2,height/2,140,40])  
+    
+    
+    screen.blit(text ,(width/2+30,height/2))  
     pygame.display.update()
-    clock.tick(60)
