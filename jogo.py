@@ -134,6 +134,8 @@ while True:
     tela.blit(score, score_rect)
     if player_rect.colliderect(coletavel1_rect) or player_rect.colliderect(coletavel2_rect) or player_rect.colliderect(coletavel3_rect):
         n_coletaveis += 1
+        pygame.mixer.music.load('sounds/coin.wav')
+        pygame.mixer.music.play(0)
     colisao_coletavel(player_rect, coletavel1_rect)
     colisao_coletavel(player_rect, coletavel2_rect)
     colisao_coletavel(player_rect, coletavel3_rect)
