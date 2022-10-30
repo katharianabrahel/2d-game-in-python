@@ -18,7 +18,7 @@ def contador_vidas():
 
 def cronometro(tempo):
     tempo_atual = int(pygame.time.get_ticks() / 1000)
-    tempo_restante = tempo - tempo_atual
+    tempo_restante = tempo - tempo_atual + ticks
     if tempo_restante == 0:
         pygame.quit()
         exit()
@@ -230,17 +230,13 @@ while True:
             pygame.quit()  
             
         if event.type == pygame.MOUSEBUTTONDOWN:  
-                    if width/2 <= mouse[0] <= width/2+140 and height/2 <= mouse[1] <= height/2+40:  
-                       iniciar = True
-                
-    
+                    if width/2 <= mouse[0] <= width/2+140 and height/2 <= mouse[1] <= height/2+40:
+                        ticks = int(pygame.time.get_ticks() / 1000)
+                        iniciar = True
     screen.fill((0,0,0))  
-    
-    
-    
     mouse = pygame.mouse.get_pos()  
 
-    if iniciar == True: 
+    if iniciar == True:
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
