@@ -13,8 +13,9 @@ def contador_vidas():
     elif vidas == 1:
         tela.blit(uma_vida, (500, 50))
     else:
-        pygame.quit()
-        exit()
+        global iniciar, reiniciar
+        reiniciar = True
+        iniciar = False
 
 def cronometro(tempo):
     tempo_atual = int(pygame.time.get_ticks() / 1000)
@@ -211,7 +212,6 @@ uma_vida = pygame.image.load('images/uma_vida.png')
 
 velocidade = False
 
-
 pygame.init()  
 res = (1280,720)  
 screen = pygame.display.set_mode(res)  
@@ -220,11 +220,15 @@ color_light = (170,170,170)
 color_dark = (100,100,100)  
 width = screen.get_width()  
 height = screen.get_height()  
-smallfont = pygame.font.SysFont('Corbel',35)  
-text = smallfont.render('Iniciar' , True , color)  
+smallfont = pygame.font.SysFont('Corbel',35) 
+reiniciar = False
+contador_vidas()
+if reiniciar == False: 
+    text = smallfont.render('Iniciar' , True , color)
 iniciar = False
+x = width/2+30
+y = height/2
 while True:  
-    
     for event in pygame.event.get():  
         if event.type == pygame.QUIT:  
             pygame.quit()  
@@ -232,12 +236,23 @@ while True:
         if event.type == pygame.MOUSEBUTTONDOWN:  
                     if width/2 <= mouse[0] <= width/2+140 and height/2 <= mouse[1] <= height/2+40:
                         ticks = int(pygame.time.get_ticks() / 1000)
+                        vidas = 3
                         iniciar = True
     screen.fill((0,0,0))  
     mouse = pygame.mouse.get_pos()  
+    
+    if width/2 <= mouse[0] <= width/2+140 and height/2 <= mouse[1] <= height/2+40:  
+        pygame.draw.rect(screen,color_light,[width/2,height/2,140,40])  
+        
+    else:  
+        pygame.draw.rect(screen,color_dark,[width/2,height/2,140,40])  
+    
+    screen.blit(text ,(x,y))  
+    pygame.display.update()
 
     if iniciar == True:
-        while True:
+        continuar = True
+        while continuar == True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -316,17 +331,10 @@ while True:
                 player_status = 'Jump'
 
             contador_vidas()
+            if iniciar == False:
+                reiniciar = True 
+                text = smallfont.render('Reiniciar' , True , color)
+                x = width/2+10
+                continuar = False
             pygame.display.update()
             clock.tick(60)
-    
-    
-    
-    if width/2 <= mouse[0] <= width/2+140 and height/2 <= mouse[1] <= height/2+40:  
-        pygame.draw.rect(screen,color_light,[width/2,height/2,140,40])  
-        
-    else:  
-        pygame.draw.rect(screen,color_dark,[width/2,height/2,140,40])  
-    
-    
-    screen.blit(text ,(width/2+30,height/2))  
-    pygame.display.update()
