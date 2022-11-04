@@ -78,3 +78,7 @@ duas_vidas = pygame.transform.flip(pygame.image.load('images/health_status/duas_
 tres_vidas = pygame.transform.flip(pygame.image.load('images/health_status/tres_vidas.png'), True, False)
 
 fonte = pygame.font.Font('font/ARCADEPI.TTF', 25)
+
+lava_1 = pygame.image.load('images/lava/lava1.png')
+lava_2 = pygame.image.load('images/lava/lava2.png')
+lava = [lava_1, lava_2]

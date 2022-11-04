@@ -1,12 +1,12 @@
 level_map = [
-    'S                                                                        ',
     '                                                                         ',
-    '       W  C EW         C                                                 ',
+    '                                                                         ',
+    ' C     W    EW         C                                                 ',
     ' XX     XXXXX          XX                                                ',
     ' XXC                     W  H EW                              C          ',
-    ' XXXX          XX         XXXXX                              XXX         ',
-    ' XXXX        XX     B              W CEWW CEWW CEW   H      XXXXX        ',
-    ' XX     X  XXXXC   XX  XX       XX  XXX  XXX  XXX W   EW   XXXXXXX   WECW',
+    ' XXXX          XX         XXXXX      C    C    C             XXX         ',
+    ' XXXX        XX     B              W  EWW  EWW  EW   H      XXXXX      C ',
+    ' XX     X  XXXXC   XX  XX       XX  XXX  XXX  XXX W   EW   XXXXXXX   WE W',
     '        X  XXXX    XX  XXX  C  XXX  XXX  XXX  XXX  XXXX  XXXXXXXXXXX  XX ',
     ' P   XXXX  XXXXXX  XX  XXXXXXXXXXX  XXX  XXX  XXX  XXXX  XXXXXXXXXXX  XX ',
     'XXXXXXXXX  XXXXXX  XX  XXXXXXXXXXX  XXX  XXX  XXX  XXXX  XXXXXXXXXXX  XX '

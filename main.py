@@ -4,6 +4,7 @@ from level import Level
 
 
 pygame.init()
+pygame.display.set_caption('Lost Coins')
 tela_dimensoes = (1280, 720)
 tela = pygame.display.set_mode((tela_dimensoes))
 clock = pygame.time.Clock()

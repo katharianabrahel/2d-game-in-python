@@ -138,6 +138,8 @@ class Level:
         player = self.player.sprite
         for sprite in self.coin.sprites():
             if sprite.rect.colliderect(player.rect):
+                pygame.mixer.music.load('sounds/coin.wav')
+                pygame.mixer.music.play(0)
                 sprite.rect.x = -5000
                 player.contador_coins += 1
         
@@ -155,7 +157,9 @@ class Level:
             if sprite.rect.colliderect(player.rect):
                 sprite.rect.x = -5000
                 if player.contador_hp < 3:
-                   player.contador_hp += 1
+                    pygame.mixer.music.load('sounds/get_heart.wav')
+                    pygame.mixer.music.play(0)
+                    player.contador_hp += 1
 
     def display_health(self):
         player = self.player.sprite
@@ -178,6 +182,17 @@ class Level:
         self.display_surface.blit(self.coin_display, self.coin_display_rect)
         self.display_surface.blit(self.amount_count, self.amount_count_rect)
 
+    def cronometro(self):
+        self.tempo = 100
+        self.tempo_atual = int(pygame.time.get_ticks() / 1000)
+        self.tempo_restante = self.tempo - self.tempo_atual
+        self.font = fonte
+        self.display_tempo = self.font.render(str(self.tempo_restante), False, (255, 255, 255))
+        self.display_surface.blit(self.display_tempo, (1170, 40))
+        if self.tempo_restante == 0:
+            pygame.quit()
+            exit()
+
     def run(self):
         #level tiles
         self.tiles.update(self.world_shift)
@@ -185,6 +200,7 @@ class Level:
         self.invi_wall.update(self.world_shift)
         self.invi_wall.draw(self.display_surface)
         self.scroll_x()
+        self.enemy_move()
         
         #player
         self.player.update()
@@ -207,10 +223,8 @@ class Level:
         #layout
         self.enemy.update(self.world_shift)
         self.enemy.draw(self.display_surface)
-        self.enemy_move()
         self.enemy_death()
         self.player_death()
         self.display_health()
         self.display_coins()
-        
-       
+        self.cronometro()       
