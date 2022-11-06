@@ -12,7 +12,7 @@ def cronometro(level):
         display_tempo = font.render(str(tempo_restante), False, (255, 255, 255))
         tela.blit(display_tempo, (1170, 40))
         if tempo_restante == 0:
-            level.game_status = 'start'
+            level.game_status = 'game-over'
 
 pygame.init()
 pygame.display.set_caption('Lost Coin')
