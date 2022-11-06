@@ -2,6 +2,7 @@ import pygame, sys
 from settings import *
 from level import Level
 from support import fonte
+from pygame import mixer
 
 def cronometro(level):
     if level.game_status == 'play':
@@ -11,16 +12,19 @@ def cronometro(level):
         font = fonte
         display_tempo = font.render(str(tempo_restante), False, (255, 255, 255))
         tela.blit(display_tempo, (1170, 40))
+        clock = pygame.image.load('images/powerup/clock.png')
+        tela.blit(clock, (1125, 35))
         if tempo_restante == 0:
             level.game_status = 'game-over'
 
 pygame.init()
+mixer.init()
 pygame.display.set_caption('Lost Coin')
 tela_dimensoes = (1280, 720)
 tela = pygame.display.set_mode((tela_dimensoes))
 clock = pygame.time.Clock()
 level = Level(level_map, tela)
-
+cont = 0
 
 while True:
     if level.game_status == 'play':
@@ -41,7 +45,12 @@ while True:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     ticks = int(pygame.time.get_ticks() / 1000)
-                    level.game_status = 'play'
+                    level.game_status = 'play'     
+        while cont == 0:
+            pygame.mixer.init()
+            pygame.mixer.music.load("sounds/song.mp3")
+            pygame.mixer.music.play(-1)
+            cont = 1
         title = pygame.image.load('images/logo.png')
         tela.fill('black')
         tela.blit(title, (100, 70))
@@ -67,6 +76,13 @@ while True:
                     pygame.quit()
                     sys.exit()
         font = pygame.font.Font('font/ARCADEPI.TTF', 17)
+        
+        while cont == 1: 
+            mixer.init() 
+            mixer.music.load("sounds/over.mp3") 
+            mixer.music.play(0) 
+            cont = 2
+            
         game_over = pygame.image.load('images/game_over.png')
         fim = font.render('VOCE FALHOU AO TENTAR COLETAR AS MOEDAS PERDIDAS.', False, (255, 255, 255))
         fim1 = font.render('SUA ARMADURA JUNTOU-SE AO EXERCITO DE ESQUELETOS FORMADO POR AQUELES QUE OUTRORA FALHARAM.', False, (255, 255, 255))
@@ -87,6 +103,13 @@ while True:
                 if event.key == pygame.K_SPACE:
                     pygame.quit()
                     sys.exit()
+
+        while cont == 1: 
+            mixer.init() 
+            mixer.music.load("sounds/win.mp3") 
+            mixer.music.play(0) 
+            cont = 2
+
         font = pygame.font.Font('font/ARCADEPI.TTF', 17)
         win = pygame.image.load('images/win.png')
         texto = font.render('PARABENS! VOCE CONSEGUIU!', False, (255, 255, 255))
