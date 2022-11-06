@@ -120,15 +120,19 @@ class Level:
     
     def enemy_death(self):
         player = self.player.sprite
+        self.playerdead_sound = pygame.mixer.Sound('sounds/player_dead.mp3')
+        self.enemydead_sound = pygame.mixer.Sound('sounds/enemy_dead.mp3')
         for sprite in self.enemy:
             if sprite.rect.colliderect(player.rect):
                 if sprite.rect.top < player.rect.bottom < sprite.rect.centery and player.status == 'fall':
                     player.direction.y = -10
+                    self.enemydead_sound.play()
                     sprite.esquerda = True
                     sprite.rect.x = -5000
                 else:
                     if not player.invencible:
                         player.contador_hp -= 1
+                        self.playerdead_sound.play()
                         player.invencible = True
                         player.hurt_time = pygame.time.get_ticks()
                     
