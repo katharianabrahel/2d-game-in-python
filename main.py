@@ -91,6 +91,10 @@ while True:
                 if event.key == pygame.K_SPACE:
                     pygame.quit()
                     sys.exit()
+        while cont == 0: 
+            pygame.mixer.music.load('sounds/win.mp3')
+            pygame.mixer.music.play(0)
+            cont = 1
         font = pygame.font.Font('font/ARCADEPI.TTF', 17)
         win = pygame.image.load('images/win.png')
         texto = font.render('PARABENS! VOCE CONSEGUIU!', False, (255, 255, 255))
