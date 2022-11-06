@@ -13,7 +13,7 @@ def cronometro(level):
         display_tempo = font.render(str(tempo_restante), False, (255, 255, 255))
         tela.blit(display_tempo, (1170, 40))
         clock = pygame.image.load('images/powerup/clock.png')
-        tela.blit(clock, (1125, 38))
+        tela.blit(clock, (1125, 35))
         if tempo_restante == 0:
             level.game_status = 'game-over'
 
