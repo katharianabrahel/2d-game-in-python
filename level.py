@@ -125,15 +125,15 @@ class Level:
             if sprite.rect.colliderect(player.rect):
                 if sprite.rect.top < player.rect.bottom < sprite.rect.centery and player.status == 'fall':
                     player.direction.y = -10
-                    mixer.music.load("sounds/enemy_dead.mp3") 
-                    mixer.music.play(0) 
+                    som_enemydead = pygame.mixer.Sound('sounds/enemy_dead.mp3')
+                    som_enemydead.play()
                     sprite.esquerda = True
                     sprite.rect.x = -5000
                 else:
                     if not player.invencible:
                         player.contador_hp -= 1
-                        mixer.music.load("sounds/player_dead.mp3") 
-                        mixer.music.play(0) 
+                        som_playerdead = pygame.mixer.Sound('sounds/player_dead.mp3')
+                        som_playerdead.play()
                         player.invencible = True
                         player.hurt_time = pygame.time.get_ticks()
                     
@@ -143,8 +143,8 @@ class Level:
             player.contador_hp -= 1
             player.rect.x -= 130
             player.rect.y -= 256
-            mixer.music.load("sounds/lava.mp3") 
-            mixer.music.play(0) 
+            som_lava = pygame.mixer.Sound('sounds/lava.mp3')
+            som_lava.play()
         if player.contador_hp == 0:
             self.game_status = 'game-over'
             
@@ -153,8 +153,8 @@ class Level:
         player = self.player.sprite
         for sprite in self.coin.sprites():
             if sprite.rect.colliderect(player.rect):
-                mixer.music.load("sounds/coin.wav") 
-                mixer.music.play(0) 
+                som_moeda = pygame.mixer.Sound('sounds/coin.wav')
+                som_moeda.play()
                 sprite.rect.x = -5000
                 player.contador_coins += 1
             if player.contador_coins == 10:
@@ -165,8 +165,8 @@ class Level:
         player = self.player.sprite
         for sprite in self.boost.sprites():
             if sprite.rect.colliderect(player.rect): 
-                mixer.music.load("sounds/energy.mp3") 
-                mixer.music.play(0) 
+                som_energia = pygame.mixer.Sound('sounds/energy.mp3')
+                som_energia.play()
                 sprite.rect.x = -5000
                 player.boost_speed = True
                 
@@ -175,8 +175,8 @@ class Level:
             if sprite.rect.colliderect(player.rect):
                 sprite.rect.x = -5000
                 if player.contador_hp < 3:
-                    mixer.music.load("sounds/get_heart.wav") 
-                    mixer.music.play(0) 
+                    som_coracao = pygame.mixer.Sound('sounds/get_heart.wav')
+                    som_coracao.play()
                     player.contador_hp += 1
 
     def display_health(self):

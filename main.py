@@ -24,7 +24,7 @@ tela_dimensoes = (1280, 720)
 tela = pygame.display.set_mode((tela_dimensoes))
 clock = pygame.time.Clock()
 level = Level(level_map, tela)
-cont = 1
+cont = 0
 
 while True:
     if level.game_status == 'play':
@@ -46,6 +46,11 @@ while True:
                 if event.key == pygame.K_SPACE:
                     ticks = int(pygame.time.get_ticks() / 1000)
                     level.game_status = 'play'
+        while cont == 0:
+            pygame.mixer.init()
+            pygame.mixer.music.load("sounds/song.mp3")
+            pygame.mixer.music.play(-1)
+            cont = 1
         title = pygame.image.load('images/logo.png')
         tela.fill('black')
         tela.blit(title, (100, 70))
