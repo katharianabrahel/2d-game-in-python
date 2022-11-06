@@ -45,7 +45,7 @@ while True:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     ticks = int(pygame.time.get_ticks() / 1000)
-                    level.game_status = 'play'     
+                    level.game_status = 'play'
         while cont == 0:
             pygame.mixer.init()
             pygame.mixer.music.load("sounds/song.mp3")
@@ -76,13 +76,11 @@ while True:
                     pygame.quit()
                     sys.exit()
         font = pygame.font.Font('font/ARCADEPI.TTF', 17)
-        
         while cont == 1: 
             mixer.init() 
             mixer.music.load("sounds/over.mp3") 
             mixer.music.play(0) 
             cont = 2
-            
         game_over = pygame.image.load('images/game_over.png')
         fim = font.render('VOCE FALHOU AO TENTAR COLETAR AS MOEDAS PERDIDAS.', False, (255, 255, 255))
         fim1 = font.render('SUA ARMADURA JUNTOU-SE AO EXERCITO DE ESQUELETOS FORMADO POR AQUELES QUE OUTRORA FALHARAM.', False, (255, 255, 255))
@@ -103,13 +101,11 @@ while True:
                 if event.key == pygame.K_SPACE:
                     pygame.quit()
                     sys.exit()
-
         while cont == 1: 
             mixer.init() 
             mixer.music.load("sounds/win.mp3") 
             mixer.music.play(0) 
             cont = 2
-
         font = pygame.font.Font('font/ARCADEPI.TTF', 17)
         win = pygame.image.load('images/win.png')
         texto = font.render('PARABENS! VOCE CONSEGUIU!', False, (255, 255, 255))
