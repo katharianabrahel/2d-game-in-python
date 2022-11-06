@@ -8,6 +8,7 @@ from coins import Coin
 from powerup import Boost, HP
 from enemy import Enemy, Invi_wall
 from lava import Lava
+from pygame import mixer
 
 class Level:
     def __init__(self, level_data, surface):
@@ -120,40 +121,40 @@ class Level:
     
     def enemy_death(self):
         player = self.player.sprite
-        self.playerdead_sound = pygame.mixer.Sound('sounds/player_dead.mp3')
-        self.enemydead_sound = pygame.mixer.Sound('sounds/enemy_dead.mp3')
         for sprite in self.enemy:
             if sprite.rect.colliderect(player.rect):
                 if sprite.rect.top < player.rect.bottom < sprite.rect.centery and player.status == 'fall':
                     player.direction.y = -10
-                    self.enemydead_sound.play()
+                    mixer.music.load("sounds/enemy_dead.mp3") 
+                    mixer.music.play(0) 
                     sprite.esquerda = True
                     sprite.rect.x = -5000
                 else:
                     if not player.invencible:
                         player.contador_hp -= 1
-                        self.playerdead_sound.play()
+                        mixer.music.load("sounds/player_dead.mp3") 
+                        mixer.music.play(0) 
                         player.invencible = True
                         player.hurt_time = pygame.time.get_ticks()
                     
     def player_death(self):
         player = self.player.sprite
-        self.lava_sound = pygame.mixer.Sound('sounds/lava.mp3')
         if player.rect.centery > 720:
             player.contador_hp -= 1
             player.rect.x -= 130
             player.rect.y -= 256
-            self.lava_sound.play()
+            mixer.music.load("sounds/lava.mp3") 
+            mixer.music.play(0) 
         if player.contador_hp == 0:
             self.game_status = 'game-over'
             
                     
     def collect_coins(self):
         player = self.player.sprite
-        self.coin_sound = pygame.mixer.Sound('sounds/coin.wav')
         for sprite in self.coin.sprites():
             if sprite.rect.colliderect(player.rect):
-                self.coin_sound.play()
+                mixer.music.load("sounds/coin.wav") 
+                mixer.music.play(0) 
                 sprite.rect.x = -5000
                 player.contador_coins += 1
             if player.contador_coins == 10:
@@ -162,21 +163,20 @@ class Level:
             
     def collect_powerup(self):
         player = self.player.sprite
-
         for sprite in self.boost.sprites():
-            self.energy_sound = pygame.mixer.Sound('sounds/energy.mp3')
-            if sprite.rect.colliderect(player.rect):
-                self.energy_sound.play()
+            if sprite.rect.colliderect(player.rect): 
+                mixer.music.load("sounds/energy.mp3") 
+                mixer.music.play(0) 
                 sprite.rect.x = -5000
                 player.boost_speed = True
                 
         
         for sprite in self.heart.sprites():
-            self.heart_sound = pygame.mixer.Sound('sounds/get_heart.wav')
             if sprite.rect.colliderect(player.rect):
                 sprite.rect.x = -5000
                 if player.contador_hp < 3:
-                    self.heart_sound.play()
+                    mixer.music.load("sounds/get_heart.wav") 
+                    mixer.music.play(0) 
                     player.contador_hp += 1
 
     def display_health(self):
