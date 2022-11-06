@@ -134,10 +134,12 @@ class Level:
                     
     def player_death(self):
         player = self.player.sprite
+        self.lava_sound = pygame.mixer.Sound('sounds/lava.mp3')
         if player.rect.centery > 720:
             player.contador_hp -= 1
             player.rect.x -= 130
             player.rect.y -= 256
+            self.lava_sound.play()
         if player.contador_hp == 0:
             self.game_status = 'game-over'
             
