@@ -10,6 +10,7 @@ from enemy import Enemy, Invi_wall
 from lava import Lava
 from pygame import mixer
 
+
 class Level:
     def __init__(self, level_data, surface):
         #level setup
@@ -155,6 +156,10 @@ class Level:
             if sprite.rect.colliderect(player.rect):
                 som_moeda = pygame.mixer.Sound('sounds/coin.wav')
                 som_moeda.play()
+        self.coin_sound = pygame.mixer.Sound('sounds/coin.wav')
+        for sprite in self.coin.sprites():
+            if sprite.rect.colliderect(player.rect):
+                self.coin_sound.play()
                 sprite.rect.x = -5000
                 player.contador_coins += 1
             if player.contador_coins == 10:
@@ -167,6 +172,11 @@ class Level:
             if sprite.rect.colliderect(player.rect): 
                 som_energia = pygame.mixer.Sound('sounds/energy.mp3')
                 som_energia.play()
+
+        for sprite in self.boost.sprites():
+            self.energy_sound = pygame.mixer.Sound('sounds/energy.mp3')
+            if sprite.rect.colliderect(player.rect):
+                self.energy_sound.play()
                 sprite.rect.x = -5000
                 player.boost_speed = True
                 
@@ -177,6 +187,11 @@ class Level:
                 if player.contador_hp < 3:
                     som_coracao = pygame.mixer.Sound('sounds/get_heart.wav')
                     som_coracao.play()
+            self.heart_sound = pygame.mixer.Sound('sounds/get_heart.wav')
+            if sprite.rect.colliderect(player.rect):
+                sprite.rect.x = -5000
+                if player.contador_hp < 3:
+                    self.heart_sound.play()
                     player.contador_hp += 1
 
     def display_health(self):
