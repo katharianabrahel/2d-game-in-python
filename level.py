@@ -7,6 +7,7 @@ from player import Player
 from coins import Coin
 from powerup import Boost, HP
 from enemy import Enemy, Invi_wall
+from lava import Lava
 
 class Level:
     def __init__(self, level_data, surface):
@@ -14,6 +15,7 @@ class Level:
         self.display_surface = surface
         self.setup_level(level_data)
         self.world_shift = 0
+        self.game_status = 'start'
         
     
     def setup_level(self, layout):
@@ -24,6 +26,12 @@ class Level:
         self.heart = pygame.sprite.Group()
         self.enemy = pygame.sprite.Group()
         self.invi_wall = pygame.sprite.Group()
+        self.lava = pygame.sprite.Group()
+
+        for tile in range(-5,80):
+            x = tile * 64
+            y = 650
+            self.lava.add(Lava((x,y)))
         
         for linha_index, linha in enumerate(layout):
             for coluna_index, celula in enumerate(linha):
@@ -50,7 +58,6 @@ class Level:
                 if celula == 'W':
                     invi_wall_sprite = Invi_wall((x,y), tile_size)
                     self.invi_wall.add(invi_wall_sprite)
-
                     
     def scroll_x(self):
         player = self.player.sprite
@@ -127,38 +134,44 @@ class Level:
                     
     def player_death(self):
         player = self.player.sprite
-        if player.rect.y > 720:
-            pygame.quit()
-            sys.exit()
+        if player.rect.centery > 720:
+            player.contador_hp -= 1
+            player.rect.x -= 130
+            player.rect.y -= 256
         if player.contador_hp == 0:
-            pygame.quit()
-            sys.exit()
+            self.game_status = 'game-over'
+            
                     
     def collect_coins(self):
         player = self.player.sprite
+        self.coin_sound = pygame.mixer.Sound('sounds/coin.wav')
         for sprite in self.coin.sprites():
             if sprite.rect.colliderect(player.rect):
+                self.coin_sound.play()
                 sprite.rect.x = -5000
                 player.contador_coins += 1
-                pygame.mixer.music.load('sounds/coin.wav')
-                pygame.mixer.music.play(0)
-
+            if player.contador_coins == 10:
+                self.game_status = 'win'
         
             
     def collect_powerup(self):
         player = self.player.sprite
 
         for sprite in self.boost.sprites():
+            self.energy_sound = pygame.mixer.Sound('sounds/energy.mp3')
             if sprite.rect.colliderect(player.rect):
+                self.energy_sound.play()
                 sprite.rect.x = -5000
                 player.boost_speed = True
                 
         
         for sprite in self.heart.sprites():
+            self.heart_sound = pygame.mixer.Sound('sounds/get_heart.wav')
             if sprite.rect.colliderect(player.rect):
                 sprite.rect.x = -5000
                 if player.contador_hp < 3:
-                   player.contador_hp += 1
+                    self.heart_sound.play()
+                    player.contador_hp += 1
 
     def display_health(self):
         player = self.player.sprite
@@ -181,6 +194,7 @@ class Level:
         self.display_surface.blit(self.coin_display, self.coin_display_rect)
         self.display_surface.blit(self.amount_count, self.amount_count_rect)
 
+
     def run(self):
         #level tiles
         self.tiles.update(self.world_shift)
@@ -188,6 +202,7 @@ class Level:
         self.invi_wall.update(self.world_shift)
         self.invi_wall.draw(self.display_surface)
         self.scroll_x()
+        self.enemy_move()
         
         #player
         self.player.update()
@@ -208,12 +223,11 @@ class Level:
         self.collect_powerup()
 
         #layout
+        self.lava.update(self.world_shift)
+        self.lava.draw(self.display_surface)
         self.enemy.update(self.world_shift)
         self.enemy.draw(self.display_surface)
-        self.enemy_move()
         self.enemy_death()
         self.player_death()
         self.display_health()
         self.display_coins()
-        
-       

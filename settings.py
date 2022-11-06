@@ -1,15 +1,15 @@
 level_map = [
-    'S                                                                        ',
-    '                                                                         ',
-    '       W  C EW         C                                                 ',
-    ' XX     XXXXX          XX                                                ',
-    ' XXC                     W  H EW                              C          ',
-    ' XXXX          XX         XXXXX                              XXX         ',
-    ' XXXX        XX     B              W CEWW CEWW CEW   H      XXXXX        ',
-    ' XX     X  XXXXC   XX  XX       XX  XXX  XXX  XXX W   EW   XXXXXXX   WECW',
-    '        X  XXXX    XX  XXX  C  XXX  XXX  XXX  XXX  XXXX  XXXXXXXXXXX  XX ',
-    ' P   XXXX  XXXXXX  XX  XXXXXXXXXXX  XXX  XXX  XXX  XXXX  XXXXXXXXXXX  XX ',
-    'XXXXXXXXX  XXXXXX  XX  XXXXXXXXXXX  XXX  XXX  XXX  XXXX  XXXXXXXXXXX  XX '
+    'X                                                                         ',
+    'X                                                                         X',
+    'XC     W    EW         C                                                  X',
+    'XXX     XXXXX          XX                                                 X',
+    'XXXC                     W  H EW                              C           X',
+    'XXXXX          XX         XXXXX      C    C    C             XXX          X',
+    'XXXXX        XX     B              W  EWW  EWW  EW   H      XXXXX      C  X',
+    'XXX     X  XXXXC   XX  XX       XX  XXX  XXX  XXX W   EW   XXXXXXX   WE W X',
+    'X       X  XXXX    XX  XXX  C  XXX  XXX  XXX  XXX  XXXX  XXXXXXXXXXX  XX  X',
+    'XP   XXXX  XXXXXX  XX  XXXXXXXXXXX  XXX  XXX  XXX  XXXX  XXXXXXXXXXX  XX  X',
+    'XXXXXXXXX  XXXXXX  XX  XXXXXXXXXXX  XXX  XXX  XXX  XXXX  XXXXXXXXXXX  XX  X'
 ]
 
 tile_size = 64
