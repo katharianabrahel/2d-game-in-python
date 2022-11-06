@@ -4,7 +4,6 @@ from support import coin
 class Coin(pygame.sprite.Sprite):
     def __init__(self, pos):
         super().__init__()
-        self.contador_coin = 0
         self.coin_index = 0
         self.animation_speed = 0.1
         self.image = coin[self.coin_index]
