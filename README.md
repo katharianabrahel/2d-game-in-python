@@ -5,9 +5,9 @@ Projeto realizado na disciplina de Programação 1, do curso de Sistemas de Info
 
 ## :wrench: Tecnologias utilizadas
 - Python;
-- Pygame <br/><br/>
+- Pygame. <br/><br/>
 Para rodar o repositório é necessário ter o python instalado no seu computador. **[Utilize esse site para baixá-lo.](https://www.python.org/downloads/)** <br/>
-Com o python instalado, instale o pygame utilizando essa linha de código no seu ambiente de virtual. Caso tenha problemas, tente outros comandos indicadas no **[site da biblioteca](https://www.pygame.org/wiki/GettingStarted)**
+Com o python instalado, instale o pygame utilizando essa linha de código no seu ambiente de virtual. Caso tenha problemas, tente outros comandos indicadas no **[site da biblioteca.](https://www.pygame.org/wiki/GettingStarted)**
 
 ```
 py -m pip install -U pygame --user
