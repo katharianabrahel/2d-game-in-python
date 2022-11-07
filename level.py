@@ -31,7 +31,7 @@ class Level:
 
         for tile in range(-5,80):
             x = tile * 64
-            y = 650
+            y = 660
             self.lava.add(Lava((x,y)))
         
         for linha_index, linha in enumerate(layout):
