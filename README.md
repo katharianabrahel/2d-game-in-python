@@ -17,6 +17,19 @@ py -m pip install -U pygame --user
 Com as ferramentas instaladas, é necessário clonar o repositório. Caso tenha dificuldades, siga os passos **[desse site.](https://docs.github.com/pt/repositories/creating-and-managing-repositories/cloning-a-repository)**<br/>
 Com o repositório clonado, agora execute o arquivo *main.py* e se divirta.
 
+## :joystick: Instruções
+<ul>
+<li>Utilize as setas do teclado para movimentar o player para esquerda, direita e para pular;</li>
+<li>Colete as moedas passando por cima delas;</li>
+<li>Para aumentar sua velocidade, colete o raio no meio do jogo;</li>
+<li>Para aumentar uma vida, colete o coração no decorrer do jogo;</li>
+<li>Pule nos inimigos para derrotá-los;</li>
+<li>Caso o player colida com o inimigo, você perde uma vida;</li>
+<li>Caso o número de vidas chegue a 0, o jogador perde;</li>
+<li>Quando coletar 10 moedas, o jogador vence.</li>
+</ul>
+
+
 ## :handshake: Colaboradores
 - [André Luís](https://github.com/andrelgsilva)
 - [Douglas Araújo](https://github.com/thedouglasilva)
