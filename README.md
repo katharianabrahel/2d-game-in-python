@@ -37,3 +37,5 @@ Com o repositório clonado, agora execute o arquivo *main.py* e se divirta.
 - [João Vitor Pê](https://github.com/JoaoPeNascimento)
 - [Katharian Abrahel](https://github.com/katharianabrahel)
 - [Tarciana Vieira](https://github.com/vieiratarci)
+
+:books: **[Link do relatório](https://docs.google.com/document/d/1gy4OC1pY-AuFJgbgbpRYwXyFmMgdGzpdgUnGWkOgP_Q/edit?usp=sharing)**
