@@ -145,6 +145,8 @@ class Level:
             player.rect.y -= 256
             som_lava = pygame.mixer.Sound('sounds/lava.mp3')
             som_lava.play()
+            player.invencible = True
+            player.hurt_time = pygame.time.get_ticks()
         if player.contador_hp == 0:
             self.game_status = 'game-over'
             
